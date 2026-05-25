@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Usuarios - ICIN</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container" id="login-container">
+        <h2>Registro de Usuario</h2>
+        <input type="text" id="reg-username" placeholder="Nombre de usuario">
+        <input type="password" id="reg-password" placeholder="Contraseña">
+        <button onclick="registrar()">Registrar Usuario</button>
+        <p id="msg" style="text-align: center; font-size: 0.9em;"></p>
+    </div>
+
+    <table class="user-table" id="tabla-usuarios" style="display: none;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="lista-usuarios">
+            </tbody>
+    </table>
+
+    <script src="app.js"></script>
+</body>
+</html>
