@@ -1,4 +1,4 @@
-const API_URL = '/api-dev'
+const API_URL = "http://localhost:3000";
 
 // Cargar usuarios al abrir la página
 document.addEventListener('DOMContentLoaded', obtenerUsuarios);
