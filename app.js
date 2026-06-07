@@ -1,71 +1,152 @@
-const API_URL = '/api-dev'
+const API_URL = 'http://localhost:5500';
 
-// Cargar usuarios al abrir la página
-document.addEventListener('DOMContentLoaded', obtenerUsuarios);
+function mostrarMensaje(texto, tipo = 'ok') {
+    const msg = document.getElementById('msg');
 
-async function obtenerUsuarios() {
+    if (!texto) {
+        msg.style.display = 'none';
+        msg.textContent = '';
+        msg.className = 'msg-box';
+        return;
+    }
+
+    msg.style.display = 'block';
+    msg.textContent = texto;
+    msg.className = `msg-box ${tipo}`;
+}
+
+function mostrarRegistro() {
+    document.querySelector('.form-box').style.display = 'none';
+    document.getElementById('register-box').style.display = 'block';
+    mostrarMensaje('');
+}
+
+function mostrarLogin() {
+    document.querySelector('.form-box').style.display = 'block';
+    document.getElementById('register-box').style.display = 'none';
+    mostrarMensaje('');
+}
+
+async function login() {
+    const username = document.getElementById('login-username').value.trim();
+    const password = document.getElementById('login-password').value.trim();
+
+    if (!username || !password) {
+        mostrarMensaje('Completa el correo y la contraseña', 'error');
+        return;
+    }
+
     try {
-        const response = await fetch(`${API_URL}/usuarios`);
-        const usuarios = await response.json();
-        
-        const lista = document.getElementById('lista-usuarios');
-        const tabla = document.getElementById('tabla-usuarios');
-        lista.innerHTML = '';
-        tabla.style.display = 'table';
-
-        usuarios.forEach(user => {
-            lista.innerHTML += `
-                <tr>
-                    <td>${user.id}</td>
-                    <td>${user.username}</td>
-                    <td>
-                        <button onclick="prepararEditar(${user.id}, '${user.username}')" style="background: #f39c12; width: auto; padding: 5px 10px;">✏️</button>
-                        <button onclick="eliminarUsuario(${user.id})" style="background: #e74c3c; width: auto; padding: 5px 10px;">🗑️</button>
-                    </td>
-                </tr>
-            `;
+        const response = await fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
         });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            mostrarMensaje(data.error || 'Error al iniciar sesión', 'error');
+            return;
+        }
+
+        mostrarMensaje(`Bienvenido, ${data.user}`, 'ok');
+
+        setTimeout(() => {
+    window.location.href = 'productos.html';
+}, 1000);
+
     } catch (error) {
-        console.error("Error al obtener usuarios", error);
+        mostrarMensaje('No se pudo conectar con el servidor', 'error');
+        console.error(error);
     }
 }
 
 async function registrar() {
-    const user = document.getElementById('reg-username').value;
-    const pass = document.getElementById('reg-password').value;
-    
-    await fetch(`${API_URL}/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: user, password: pass })
-    });
-    
-    limpiarYRefrescar();
-}
+    const username = document.getElementById('reg-username').value.trim();
+    const password = document.getElementById('reg-password').value.trim();
 
-async function eliminarUsuario(id) {
-    if (confirm("¿Estás seguro de eliminar este usuario?")) {
-        await fetch(`${API_URL}/usuarios/${id}`, { method: 'DELETE' });
-        obtenerUsuarios();
+    if (!username || !password) {
+        mostrarMensaje('Completa usuario/correo y contraseña', 'error');
+        return;
     }
-}
 
-async function prepararEditar(id, nombreActual) {
-    const nuevoNombre = prompt("Nuevo nombre para " + nombreActual, nombreActual);
-    const nuevaPass = prompt("Nueva contraseña para " + nombreActual);
-    
-    if (nuevoNombre && nuevaPass) {
-        await fetch(`${API_URL}/usuarios/${id}`, {
-            method: 'PUT',
+    try {
+        const response = await fetch(`${API_URL}/register`, {
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: nuevoNombre, password: nuevaPass })
+            body: JSON.stringify({ username, password })
         });
-        obtenerUsuarios();
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            mostrarMensaje(data.error || 'Error al registrar usuario', 'error');
+            return;
+        }
+
+        mostrarMensaje('Cuenta creada correctamente. Ahora inicia sesión.', 'ok');
+
+        document.getElementById('reg-username').value = '';
+        document.getElementById('reg-password').value = '';
+
+        setTimeout(mostrarLogin, 1000);
+
+    } catch (error) {
+        mostrarMensaje('No se pudo conectar con el servidor', 'error');
+        console.error(error);
     }
 }
 
-function limpiarYRefrescar() {
-    document.getElementById('reg-username').value = '';
-    document.getElementById('reg-password').value = '';
-    obtenerUsuarios();
+// --- FUNCIONES NUEVAS PARA EL PANEL DE RECUPERACIÓN ---
+
+function mostrarOlvidoClave() {
+    // Ocultamos la caja de login y de registro, y mostramos la de olvido
+    document.getElementById('login-box-container').style.display = 'none';
+    document.getElementById('register-box').style.display = 'none';
+    document.getElementById('forgot-box').style.display = 'block';
+    mostrarMensaje('');
+}
+
+function mostrarLoginDesdeOlvido() {
+    // Restauramos la vista inicial del Login tradicional
+    document.getElementById('login-box-container').style.display = 'block';
+    document.getElementById('register-box').style.display = 'none';
+    document.getElementById('forgot-box').style.display = 'none';
+    mostrarMensaje('');
+}
+
+async function solicitarRecuperacion() {
+    const username = document.getElementById('forgot-username').value.trim();
+
+    if (!username) {
+        mostrarMensaje('Por favor, ingresa tu usuario o correo', 'error');
+        return;
+    }
+
+    try {
+        mostrarMensaje('Procesando solicitud...', 'ok');
+        
+        // Enviamos la petición HTTP POST a la ruta que creamos en el servidor
+        const response = await fetch(`${API_URL}/forgot-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            mostrarMensaje(data.error || 'Error al procesar la solicitud', 'error');
+            return;
+        }
+
+        // Si el backend responde bien, pintamos el mensaje verde de éxito
+        mostrarMensaje(data.message, 'ok');
+        document.getElementById('forgot-username').value = '';
+
+    } catch (error) {
+        mostrarMensaje('No se pudo conectar con el servidor', 'error');
+        console.error(error);
+    }
 }
