@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Catalog - Productos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="../../frontend/css/productos.css">
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="header-inner">
+            <div class="brand-wrapper">
+                <span class="material-symbols-outlined brand-icon">shopping_basket</span>
+                <div class="brand-text">
+                    <span class="brand-title">Cloud Catalog</span>
+                    <span class="brand-sub">Abarrotes</span>
+                </div>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="¿Qué producto estás buscando?">
+                <button class="search-btn">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
+            
+            <div class="top-actions">
+                <button class="cart-btn" onclick="verCompras()">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="cart-label">Carrito</span>
+                    <span id="cart-count">0</span>
+                </button>
+                
+                <div class="user-menu">
+                    <button class="user-btn" onclick="toggleMenu()">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        Juan Santos
+                        <span class="arrow">▾</span>
+                    </button>
+                    <div id="dropdown" class="dropdown">
+                        <button onclick="cerrarSesion()">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="categories-nav">
+        <div class="nav-inner">
+            <button class="menu-hamburger">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <div class="categories-links">
+                <a href="#" class="active" onclick="seleccionarCategoria('Todas')">TODAS LAS CATEGORÍAS</a>
+                <a href="#" onclick="seleccionarCategoria('Abarrotes')">ABARROTES</a>
+                <a href="#" onclick="seleccionarCategoria('Bebidas')">BEBIDAS</a>
+                <a href="#" onclick="seleccionarCategoria('Lácteos')">LÁCTEOS</a>
+                <a href="#" onclick="seleccionarCategoria('Limpieza')">LIMPIEZA</a>
+                <a href="#" onclick="seleccionarCategoria('Snacks')">SNACKS</a>
+                <a href="#" onclick="seleccionarCategoria('Cuidado Personal')">CUIDADO PERSONAL</a>
+            </div>
+            <div class="nav-info">
+                <div class="info-item">
+                    <span class="material-symbols-outlined">location_on</span>
+                    <div>
+                        <p class="info-title">RECIBE TU COMPRA</p>
+                        <p class="info-sub">Ver medios de envío</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="material-symbols-outlined">credit_card</span>
+                    <div>
+                        <p class="info-title">PAGA EN CUOTAS</p>
+                        <p class="info-sub">Hasta 12x sin interés</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        
+        <section class="hero-banner">
+            <div class="hero-text">
+                <p class="hero-badge">Tu tienda de confianza</p>
+                <h1>TODO PARA <br><span class="highlight">TU HOGAR</span></h1>
+                <p class="hero-description">Abarrotes, bebidas, lácteos y mucho más al mejor precio del mercado.</p>
+                <button class="hero-btn">Ver ofertas &rarr;</button>
+            </div>
+            
+            <div class="basket-image-container">
+                <img src="../img/banner_1.png" alt="Canasta de productos" class="basket-img">
+            </div>
+
+            <div class="hero-promo">
+                <p class="promo-badge">OFERTA ESPECIAL</p>
+                <h2>Hasta <span class="promo-perc">30%</span></h2>
+                <p class="promo-desc">de descuento en productos seleccionados de la semana</p>
+                <a href="#" class="promo-link">Ver ofertas &rsaquo;</a>
+            </div>
+        </section>
+
+        <section class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon-wrapper"><span class="material-symbols-outlined">local_shipping</span></div>
+                <div>
+                    <h3>ENVÍOS RÁPIDOS &rarr;</h3>
+                    <p>Recibe tu compra directamente en tu hogar.</p>
+                </div>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon-wrapper"><span class="material-symbols-outlined">percent</span></div>
+                <div>
+                    <h3>PRECIOS BAJOS &rarr;</h3>
+                    <p>Los mejores precios del mercado todos los días.</p>
+                </div>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon-wrapper"><span class="material-symbols-outlined">support_agent</span></div>
+                <div>
+                    <h3>ATENCIÓN AL CLIENTE &rarr;</h3>
+                    <p>Estamos para ayudarte en cualquier momento.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="catalog-layout">
+            
+            <aside class="sidebar-filters">
+                <div class="filter-group">
+                    <h4 class="sidebar-title">CATEGORÍAS</h4>
+                    <ul class="sidebar-cat-list">
+                        <li id="cat-Todas" class="active" onclick="seleccionarCategoria('Todas')">
+                            <div class="cat-left"><span class="material-symbols-outlined cat-icon">grid_view</span> <span>Todas las categorías</span></div>
+                            <mark id="count-todas">312</mark>
+                        </li>
+                        <li id="cat-Abarrotes" onclick="seleccionarCategoria('Abarrotes')">
+                            <div class="cat-left"><span class="material-symbols-outlined cat-icon">cookie</span> <span>Abarrotes</span></div>
+                            <mark id="count-abarrotes">120</mark>
+                        </li>
+                        <li id="cat-Bebidas" onclick="seleccionarCategoria('Bebidas')">
+                            <div class="cat-left"><span class="material-symbols-outlined cat-icon">local_bar</span> <span>Bebidas</span></div>
+                            <mark id="count-bebidas">45</mark>
+                        </li>
+                        <li id="cat-Lácteos" onclick="seleccionarCategoria('Lácteos')">
+                            <div class="cat-left"><span class="material-symbols-outlined cat-icon">egg</span> <span>Lácteos</span></div>
+                            <mark id="count-lacteos">32</mark>
+                        </li>
+                        <li id="cat-Limpieza" onclick="seleccionarCategoria('Limpieza')">
+                            <div class="cat-left"><span class="material-symbols-outlined cat-icon">cleaning_services</span> <span>Limpieza</span></div>
+                            <mark id="count-limpieza">28</mark>
+                        </li>
+                        <li id="cat-Snacks" onclick="seleccionarCategoria('Snacks')">
+                            <div class="cat-left"><span class="material-symbols-outlined cat-icon">fastfood</span> <span>Snacks</span></div>
+                            <mark id="count-snacks">54</mark>
+                        </li>
+                        <li id="cat-Cuidado" onclick="seleccionarCategoria('Cuidado Personal')">
+                            <div class="cat-left"><span class="material-symbols-outlined cat-icon">face</span> <span>Cuidado personal</span></div>
+                            <mark id="count-cuidado">36</mark>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="filter-group-sec">
+                    <h4 class="sidebar-title">FILTROS</h4>
+                    
+                    <div class="sub-filter-block">
+                        <h5>Estado del producto</h5>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="check-disponible" checked onchange="filtrarCatalogo()">
+                            <span class="checkmark"></span> Disponibles
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="check-agotado" checked onchange="filtrarCatalogo()">
+                            <span class="checkmark"></span> Agotados
+                        </label>
+                    </div>
+
+                    <div class="sub-filter-block">
+                        <h5>Rango de precio</h5>
+                        <div class="price-slider-container">
+                            <input type="range" id="price-slider" min="0" max="15000" value="15000" oninput="actualizarLabelPrecio(this.value)">
+                        </div>
+                        <div class="price-block-inputs">
+                            <div class="price-box-input">
+                                <span>$ Mínimo</span>
+                                <input type="text" value="$ 0" readonly>
+                            </div>
+                            <div class="price-box-input">
+                                <span>$ Máximo</span>
+                                <input type="text" id="price-max-label-input" value="$ 15.000" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-apply-filters" onclick="filtrarCatalogo()">
+                        <span class="material-symbols-outlined">tune</span> Aplicar filtros
+                    </button>
+                </div>
+            </aside>
+
+            <section class="products-section">
+                <div class="products-header">
+                    <p id="products-counter">Mostrando 1-12 de 312 productos</p>
+                    <div class="products-controls">
+                        <select id="sort-select" onchange="filtrarCatalogo()">
+                            <option value="relevantes">Más relevantes</option>
+                            <option value="menor">Precio: Menor a Mayor</option>
+                            <option value="mayor">Precio: Mayor a Menor</option>
+                        </select>
+                        <button class="view-btn active"><span class="material-symbols-outlined">grid_view</span></button>
+                        <button class="view-btn"><span class="material-symbols-outlined">view_list</span></button>
+                    </div>
+                </div>
+
+                <div class="products-grid" id="grid-productos"></div>
+
+                <div class="pagination">
+                    <button class="page-btn" disabled>&lsaquo;</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <span class="dots">...</span>
+                    <button class="page-btn">26</button>
+                    <button class="page-btn">&rsaquo;</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Cloud Catalog. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../../frontend/js/products/productos.js"></script>
+</body>
+</html>

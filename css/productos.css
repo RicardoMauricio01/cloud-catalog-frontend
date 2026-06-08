@@ -1,0 +1,938 @@
+/* ==========================================================================
+   1. RESET, VARIABLES Y ESTILOS GENERALES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: #fcfdfe;
+    color: #2d3748;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   2. CABECERA PRINCIPAL (TOPBAR)
+   ========================================================================== */
+.topbar {
+    height: 75px;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 45px;
+    position: sticky;
+    top: 0;
+    z-index: 101;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.header-inner {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-icon {
+    color: #00a76f;
+    font-size: 32px;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-title {
+    color: #00a76f;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+}
+
+.brand-sub {
+    font-size: 11px;
+    color: #718096;
+    font-weight: 600;
+}
+
+/* Caja de Búsqueda */
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #f4f6f8;
+    border-radius: 99px;
+    padding: 6px 18px;
+    width: 40%;
+    max-width: 500px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+}
+
+.search-box:focus-within {
+    border-color: #00a76f;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 167, 111, 0.1);
+}
+
+.search-box input {
+    background: transparent;
+    flex: 1;
+    font-size: 13px;
+    color: #4a5568;
+    padding: 6px 8px;
+    border: none;
+    outline: none;
+}
+
+.search-btn {
+    background: transparent;
+    color: #718096;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Acciones de Usuario y Carrito */
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cart-btn {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #2d3748;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    position: relative;
+    padding: 8px 12px;
+}
+
+#cart-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #00a76f;
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+}
+
+.user-menu {
+    position: relative;
+}
+
+.user-btn {
+    background: #f4f6f8;
+    border: 1px solid #edf2f7;
+    padding: 8px 16px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   3. BARRA DE NAVEGACIÓN (CATEGORÍAS DE COLOR VERDE)
+   ========================================================================== */
+.categories-nav {
+    height: 50px;
+    background: #00a76f;
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 75px;
+    z-index: 100;
+}
+
+.nav-inner {
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-hamburger {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.categories-links {
+    display: flex;
+    gap: 20px;
+}
+
+.categories-links a {
+    text-decoration: none;
+    color: #e1f5ec;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+}
+
+.categories-links a:hover, 
+.categories-links a.active {
+    color: #ffffff;
+}
+
+.nav-info {
+    display: flex;
+    gap: 25px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+}
+
+.info-title {
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.info-sub {
+    font-size: 10px;
+    color: #e1f5ec;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   4. CONTENEDOR ESTRUCTURAL PRINCIPAL
+   ========================================================================== */
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 45px;
+}
+
+/* ==========================================================================
+   5. HERO BANNER
+   ========================================================================== */
+.hero-banner {
+    background: #edf7f3;
+    border-radius: 20px;
+    height: 280px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    position: relative;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.hero-text {
+    max-width: 50%;
+    z-index: 10;
+}
+
+.hero-badge {
+    color: #00a76f;
+    font-weight: 700;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.hero-text h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: #1a202c;
+    line-height: 1.1;
+    margin-bottom: 15px;
+}
+
+.hero-text .highlight {
+    color: #00a76f;
+}
+
+.hero-btn {
+    background: #00a76f;
+    color: white;
+    border: none;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 10px 22px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.hero-btn:hover {
+    background: #008f5d;
+}
+
+.hero-promo {
+    border-left: 1px dashed #cbd5e0;
+    padding-left: 50px;
+    max-width: 30%;
+    text-align: left;
+}
+
+.promo-badge {
+    background: #e1f5ec;
+    color: #00a76f;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.hero-promo h2 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a202c;
+    margin-top: 5px;
+}
+
+.promo-perc {
+    font-size: 42px;
+    font-weight: 800;
+    color: #00a76f;
+    display: block;
+    line-height: 1;
+    margin: 5px 0;
+}
+
+.promo-desc {
+    font-size: 11px;
+    color: #718096;
+    margin-bottom: 12px;
+}
+
+.promo-link {
+    color: #00a76f;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   6. SECCIÓN DE BENEFICIOS (TARJETAS RÁPIDAS)
+   ========================================================================== */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.benefit-card {
+    background: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.benefit-icon-wrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #edf7f3;
+    color: #00a76f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.benefit-card h3 {
+    font-size: 12px;
+    font-weight: 800;
+    color: #1a202c;
+}
+
+.benefit-card p {
+    font-size: 11px;
+    color: #718096;
+    margin-top: 2px;
+}
+
+/* ==========================================================================
+   7. ARQUITECTURA DEL CATÁLOGO (GRID DE DISTRIBUCIÓN)
+   ========================================================================== */
+.catalog-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 40px;
+    align-items: start;
+    margin-top: 30px;
+}
+
+/* ==========================================================================
+   8. COMPONENTES DE LA BARRA LATERAL (FILTROS)
+   ========================================================================== */
+.sidebar-filters {
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.sidebar-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: #1a202c;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+/* Lista de Categorías */
+.sidebar-cat-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar-cat-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #4a5568;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.sidebar-cat-list li:hover {
+    background: #f7fafc;
+}
+
+.sidebar-cat-list li.active {
+    background: #edf7f3;
+    color: #00a76f;
+}
+
+.cat-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cat-icon {
+    font-size: 18px;
+    color: #718096;
+}
+
+.sidebar-cat-list li.active .cat-icon {
+    color: #00a76f;
+}
+
+.sidebar-cat-list mark {
+    background: transparent;
+    font-size: 11px;
+    color: #a0aec0;
+    font-weight: 600;
+}
+
+.sidebar-cat-list li.active mark {
+    color: #00a76f;
+}
+
+/* Separadores de Sección de Filtros */
+.filter-group-sec {
+    border-top: 1px solid #edf2f7;
+    padding-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.sub-filter-block h5 {
+    font-size: 11px;
+    font-weight: 700;
+    color: #718096;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Personalización de Checkboxes */
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    color: #2d3748;
+    user-select: none;
+}
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #ffffff;
+    border: 2px solid #cbd5e0;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+}
+
+.custom-checkbox:hover input ~ .checkmark {
+    border-color: #a0aec0;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: #00a76f;
+    border-color: #00a76f;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Filtro Deslizante (Rango) */
+.price-slider-container {
+    margin-bottom: 15px;
+    padding: 0 4px;
+}
+
+#price-slider {
+    width: 100%;
+    accent-color: #00a76f;
+    cursor: pointer;
+}
+
+/* Cajas de Input de Precio Mínimo y Máximo */
+.price-block-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.price-box-input {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 6px 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.price-box-input span {
+    font-size: 9px;
+    color: #a0aec0;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.price-box-input input {
+    border: none;
+    background: transparent;
+    font-size: 11px;
+    font-weight: 700;
+    color: #2d3748;
+    margin-top: 2px;
+    width: 100%;
+    outline: none;
+}
+
+/* Botón de Aplicar Filtros */
+.btn-apply-filters {
+    width: 100%;
+    background: #00a76f;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s ease;
+}
+
+.btn-apply-filters:hover {
+    background: #008f5d;
+}
+
+/* ==========================================================================
+   9. SECCIÓN DE CONTENIDO (PRODUCTOS DERECHA)
+   ========================================================================== */
+.products-section {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Encabezado del catálogo */
+.products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#products-counter {
+    font-size: 12px;
+    color: #718096;
+    font-weight: 600;
+}
+
+.products-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.products-controls select {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #4a5568;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Botones de Vista (Grid/Lista) */
+.view-btn {
+    width: 34px;
+    height: 34px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #718096;
+    cursor: pointer;
+    border: none;
+}
+
+.view-btn.active {
+    background: #edf7f3;
+    color: #00a76f;
+    border: 1px solid #00a76f;
+}
+
+/* ==========================================================================
+   10. GRID DE PRODUCTOS FIJO (3 COLUMNAS EXACTAS)
+   ========================================================================== */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+/* Tarjetas de Producto Individuales */
+.product-card {
+    background: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 350px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
+}
+
+.img-wrapper {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.product-img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.product-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.product-price {
+    font-size: 14px;
+    font-weight: 800;
+    color: #1a202c;
+    margin-bottom: 15px;
+}
+
+/* Pie de la Tarjeta */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+/* Etiquetas de Estado */
+.status-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: capitalize;
+}
+
+.status-badge.disponible { 
+    background: #edf7f3; 
+    color: #00a76f; 
+}
+
+.status-badge.agotado { 
+    background: #fff5f5; 
+    color: #e53e3e; 
+}
+
+/* Botón Añadir al Carrito */
+.add-to-cart-btn {
+    width: 34px;
+    height: 34px;
+    background: #ffffff;
+    border: 1px solid #edf2f7;
+    border-radius: 8px;
+    color: #00a76f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+    background: #00a76f;
+    color: white;
+    border-color: #00a76f;
+}
+
+.add-to-cart-btn:disabled {
+    background: #f7fafc;
+    color: #cbd5e0;
+    cursor: not-allowed;
+    border-color: #edf2f7;
+}
+
+/* ==========================================================================
+   11. ELEMENTOS DE PAGINACIÓN
+   ========================================================================== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+}
+
+.page-btn {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #4a5568;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.page-btn:hover:not(:disabled) {
+    border-color: #a0aec0;
+}
+
+.page-btn.active {
+    background: #00a76f;
+    color: white;
+    border-color: #00a76f;
+}
+
+.page-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.dots {
+    color: #a0aec0;
+    font-size: 12px;
+    padding: 0 4px;
+}
+
+/* ==========================================================================
+   12. PIE DE PÁGINA (FOOTER)
+   ========================================================================== */
+.main-footer {
+    margin-top: 60px;
+    border-top: 1px solid #edf2f7;
+    padding: 25px 0;
+    text-align: center;
+}
+
+.main-footer p {
+    font-size: 11px;
+    color: #a0aec0;
+}
+
+/* ==========================================================================
+   CORRECCIÓN DEL MENÚ DESPLEGABLE DE USUARIO (DROPDOWN)
+   ========================================================================== */
+.user-menu {
+    position: relative;
+}
+
+/* El contenedor del menú desplegable */
+.dropdown {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 24px rgba(145, 158, 171, 0.2);
+    border-radius: 12px;
+    border: 1px solid #edf2f7;
+    padding: 8px;
+    z-index: 1000;
+}
+
+/* Cuando se le añade la clase 'show' mediante JS */
+.dropdown.show {
+    display: block;
+    animation: fadeInDropdown 0.2s ease-out;
+}
+
+/* El botón de cerrar sesión por dentro */
+.dropdown button {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #e53e3e; /* Color rojo sutil para denotar salida */
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s ease;
+}
+
+.dropdown button:hover {
+    background-color: #fff5f5;
+}
+
+/* Animación sutil de entrada */
+@keyframes fadeInDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   CORRECCIÓN DE IMÁGENES EN EL HERO BANNER
+   ========================================================================== */
+.basket-image-container {
+    max-width: 350px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.basket-img {
+    width: 280px;
+    object-fit: contain;
+}
