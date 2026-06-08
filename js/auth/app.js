@@ -37,7 +37,7 @@ async function login() {
     }
 
     try {
-        const response = await fetch(`${API_URL}/api/auth/login`, {
+        const response = await fetch(`${API_URL}/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
@@ -53,8 +53,8 @@ async function login() {
         mostrarMensaje(`Bienvenido, ${data.user}`, 'ok');
 
         setTimeout(() => {
-            window.location.href = 'productos.html';
-        }, 1000);
+    window.location.href = 'productos.html';
+}, 1000);
 
     } catch (error) {
         mostrarMensaje('No se pudo conectar con el servidor', 'error');
@@ -72,7 +72,7 @@ async function registrar() {
     }
 
     try {
-        const response = await fetch(`${API_URL}/api/auth/register`, {
+        const response = await fetch(`${API_URL}/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
@@ -91,6 +91,59 @@ async function registrar() {
         document.getElementById('reg-password').value = '';
 
         setTimeout(mostrarLogin, 1000);
+
+    } catch (error) {
+        mostrarMensaje('No se pudo conectar con el servidor', 'error');
+        console.error(error);
+    }
+}
+
+// --- FUNCIONES NUEVAS PARA EL PANEL DE RECUPERACIÓN ---
+
+function mostrarOlvidoClave() {
+    // Ocultamos la caja de login y de registro, y mostramos la de olvido
+    document.getElementById('login-box-container').style.display = 'none';
+    document.getElementById('register-box').style.display = 'none';
+    document.getElementById('forgot-box').style.display = 'block';
+    mostrarMensaje('');
+}
+
+function mostrarLoginDesdeOlvido() {
+    // Restauramos la vista inicial del Login tradicional
+    document.getElementById('login-box-container').style.display = 'block';
+    document.getElementById('register-box').style.display = 'none';
+    document.getElementById('forgot-box').style.display = 'none';
+    mostrarMensaje('');
+}
+
+async function solicitarRecuperacion() {
+    const username = document.getElementById('forgot-username').value.trim();
+
+    if (!username) {
+        mostrarMensaje('Por favor, ingresa tu usuario o correo', 'error');
+        return;
+    }
+
+    try {
+        mostrarMensaje('Procesando solicitud...', 'ok');
+        
+        // Enviamos la petición HTTP POST a la ruta que creamos en el servidor
+        const response = await fetch(`${API_URL}/forgot-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            mostrarMensaje(data.error || 'Error al procesar la solicitud', 'error');
+            return;
+        }
+
+        // Si el backend responde bien, pintamos el mensaje verde de éxito
+        mostrarMensaje(data.message, 'ok');
+        document.getElementById('forgot-username').value = '';
 
     } catch (error) {
         mostrarMensaje('No se pudo conectar con el servidor', 'error');
