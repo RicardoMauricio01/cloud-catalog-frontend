@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Catalog - Acceso</title>
+    <link rel="stylesheet" href="../../frontend/css/styles.css">
+</head>
+<body>
+
+    <main class="page">
+        <section class="hero">
+            <div class="brand">Cloud Catalog</div>
+            <div class="ghost-shape"></div>
+            <div class="wave"></div>
+
+            <div class="hero-content">
+                <h1>Gestiona<br>tu sistema</h1>
+                <p>Controla usuarios, productos y base de datos desde una plataforma moderna, rápida y segura.</p>
+            </div>
+        </section>
+
+        <section class="form-side">
+            <div class="login-card">
+                <h2>Bienvenido</h2>
+                <p class="subtitle">Inicia sesión para continuar</p>
+
+                <div id="msg" class="msg-box"></div>
+
+                <div class="form-box">
+                    <input class="input-box" type="text" id="login-username" placeholder="Correo electrónico">
+                    <input class="input-box" type="password" id="login-password" placeholder="Contraseña">
+
+                    <div class="form-row">
+                        <a class="forgot" href="#">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <button class="btn" onclick="login()">Ingresar</button>
+
+                    <p class="signup">
+                        ¿No tienes una cuenta?
+                        <span onclick="mostrarRegistro()">Registrarse</span>
+                    </p>
+                </div>
+
+                <div class="register-box" id="register-box">
+                    <input class="input-box" type="text" id="reg-username" placeholder="Nuevo correo o usuario">
+                    <input class="input-box" type="password" id="reg-password" placeholder="Nueva contraseña">
+
+                    <button class="btn secondary" onclick="registrar()">Crear cuenta</button>
+
+                    <p class="signup">
+                        ¿Ya tienes cuenta?
+                        <span onclick="mostrarLogin()">Iniciar sesión</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../../frontend/js/auth/app.js"></script>
+</body>
+</html>
