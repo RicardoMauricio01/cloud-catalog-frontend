@@ -2,97 +2,110 @@ const API_URL = "http://192.168.50.23:5501/api/products";
 
 let selectedProductId = null;
 
+// Inicializar
+
 document.addEventListener("DOMContentLoaded", () => {
     loadProducts();
 
     setupCreate();
-
     setupEdit();
-
     setupDelete();
+    setupTableEvents();
+    setupCheckboxes();
 });
+
+// API
+
+async function request(url, options = {}) {
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+        throw new Error("Error en la petición");
+    }
+
+    return response;
+}
+
+// Productos
 
 async function loadProducts() {
     try {
-        const response = await fetch(API_URL);
-
-        if (!response.ok) {
-            throw new Error("Error obteniendo productos");
-        }
+        const response = await request(API_URL);
 
         const productos = await response.json();
 
-        const tableBody = document.getElementById("products-table");
-
-        tableBody.innerHTML = "";
-
-        productos.forEach((producto) => {
-            const row = document.createElement("tr");
-
-            row.innerHTML = `
-                    <td>
-                        <input
-                            type="checkbox"
-                            class="form-check-input product-checkbox"
-                        />
-                    </td>
-
-                    <td>
-                        ${producto.id}
-                    </td>
-
-                    <td>
-                        ${producto.nombre}
-                    </td>
-
-                    <td>
-                        $${Number(producto.precio).toLocaleString("es-CL")}
-                    </td>
-
-                    <td>
-                        ${producto.stock}
-                    </td>
-
-                    <td>
-
-                        <button
-                            class="action-btn edit edit-btn"
-                            data-id="${producto.id}"
-                            data-nombre="${producto.nombre}"
-                            data-precio="${producto.precio}"
-                            data-stock="${producto.stock}"
-                            data-bs-toggle="modal"
-                            data-bs-target="#editProductModal"
-                        >
-                            <i class="material-icons">
-                                edit
-                            </i>
-                        </button>
-
-                        <button
-                            class="action-btn delete delete-btn"
-                            data-id="${producto.id}"
-                            data-bs-toggle="modal"
-                            data-bs-target="#deleteProductModal"
-                        >
-                            <i class="material-icons">
-                                delete
-                            </i>
-                        </button>
-
-                    </td>
-                `;
-
-            tableBody.appendChild(row);
-        });
-
-        setupCheckboxes();
-
-        setupDynamicButtons();
+        renderProducts(productos);
     } catch (error) {
         console.error(error);
     }
 }
+
+function renderProducts(productos) {
+    const tableBody = document.getElementById("products-table");
+
+    tableBody.innerHTML = productos
+        .map((producto) => createProductRow(producto))
+        .join("");
+}
+
+function createProductRow(producto) {
+    return `
+        <tr>
+            <td>
+                <input
+                    type="checkbox"
+                    class="form-check-input product-checkbox"
+                />
+            </td>
+
+            <td>
+                ${producto.id}
+            </td>
+
+            <td>
+                ${producto.nombre}
+            </td>
+
+            <td>
+                $${Number(producto.precio).toLocaleString("es-CL")}
+            </td>
+
+            <td>
+                ${producto.stock}
+            </td>
+
+            <td>
+
+                <button
+                    class="action-btn edit edit-btn"
+                    data-id="${producto.id}"
+                    data-nombre="${producto.nombre}"
+                    data-precio="${producto.precio}"
+                    data-stock="${producto.stock}"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editProductModal"
+                >
+                    <i class="material-icons">
+                        edit
+                    </i>
+                </button>
+
+                <button
+                    class="action-btn delete delete-btn"
+                    data-id="${producto.id}"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteProductModal"
+                >
+                    <i class="material-icons">
+                        delete
+                    </i>
+                </button>
+            </td>
+        </tr>
+    `;
+}
+
+// Create
 
 function setupCreate() {
     const form = document.getElementById("addProductForm");
@@ -100,32 +113,21 @@ function setupCreate() {
     form?.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const nombre = document.getElementById("addNombre").value;
-
-        const precio = document.getElementById("addPrecio").value;
-
-        const stock = document.getElementById("addStock").value;
-
+        const product = {
+            nombre: document.getElementById("addNombre").value,
+            precio: document.getElementById("addPrecio").value,
+            stock: document.getElementById("addStock").value,
+        };
         try {
-            const response = await fetch(API_URL, {
+            await request(API_URL, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    nombre,
-                    precio,
-                    stock,
-                }),
+                body: JSON.stringify(product),
             });
 
-            if (!response.ok) {
-                throw new Error("Error creando producto");
-            }
-
-            bootstrap.Modal.getInstance(
-                document.getElementById("addProductModal")
-            ).hide();
+            closeModal("addProductModal");
 
             form.reset();
 
@@ -136,6 +138,8 @@ function setupCreate() {
     });
 }
 
+// Edit
+
 function setupEdit() {
     const form = document.getElementById("editProductForm");
 
@@ -144,32 +148,22 @@ function setupEdit() {
 
         const id = document.getElementById("editId").value;
 
-        const nombre = document.getElementById("editNombre").value;
-
-        const precio = document.getElementById("editPrecio").value;
-
-        const stock = document.getElementById("editStock").value;
+        const product = {
+            nombre: document.getElementById("editNombre").value,
+            precio: document.getElementById("editPrecio").value,
+            stock: document.getElementById("editStock").value,
+        };
 
         try {
-            const response = await fetch(`${API_URL}/${id}`, {
+            await request(`${API_URL}/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    nombre,
-                    precio,
-                    stock,
-                }),
+                body: JSON.stringify(product),
             });
 
-            if (!response.ok) {
-                throw new Error("Error actualizando producto");
-            }
-
-            bootstrap.Modal.getInstance(
-                document.getElementById("editProductModal")
-            ).hide();
+            closeModal("editProductModal");
 
             loadProducts();
         } catch (error) {
@@ -177,6 +171,8 @@ function setupEdit() {
         }
     });
 }
+
+// Delete
 
 function setupDelete() {
     const form = document.querySelector("#deleteProductModal form");
@@ -185,53 +181,58 @@ function setupDelete() {
         e.preventDefault();
 
         try {
-            const response = await fetch(`${API_URL}/${selectedProductId}`, {
+            await request(`${API_URL}/${selectedProductId}`, {
                 method: "DELETE",
             });
 
-            if (!response.ok) {
-                throw new Error("Error eliminando producto");
-            }
+            closeModal("deleteProductModal");
 
-            bootstrap.Modal.getInstance(
-                document.getElementById("deleteProductModal")
-            ).hide();
-
-            loadProducts();
+            await loadProducts();
         } catch (error) {
             console.error(error);
         }
     });
 }
 
-function setupDynamicButtons() {
-    document.querySelectorAll(".edit-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            document.getElementById("editId").value = btn.dataset.id;
+// Eventos de Tabla
 
-            document.getElementById("editNombre").value = btn.dataset.nombre;
+function setupTableEvents() {
+    const tableBody = document.getElementById("products-table");
 
-            document.getElementById("editPrecio").value = btn.dataset.precio;
+    tableBody.addEventListener("click", (e) => {
+        const editBtn = e.target.closest(".edit-btn");
+        const deleteBtn = e.target.closest(".delete-btn");
 
-            document.getElementById("editStock").value = btn.dataset.stock;
-        });
-    });
+        if (editBtn) {
+            fillEditForm(editBtn.dataset);
+        }
 
-    document.querySelectorAll(".delete-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            selectedProductId = btn.dataset.id;
-        });
+        if (deleteBtn) {
+            selectedProductId = deleteBtn.dataset.id;
+        }
     });
 }
+
+function fillEditForm(data) {
+    document.getElementById("editId").value = data.id;
+    document.getElementById("editNombre").value = data.nombre;
+    document.getElementById("editPrecio").value = data.precio;
+    document.getElementById("editStock").value = data.stock;
+}
+
+// Checkboxes
 
 function setupCheckboxes() {
     const selectAll = document.getElementById("selectAll");
 
-    const checkboxes = document.querySelectorAll(".product-checkbox");
-
     selectAll?.addEventListener("change", function () {
-        checkboxes.forEach((cb) => {
+        document.querySelectorAll(".product-checkbox").forEach((cb) => {
             cb.checked = this.checked;
         });
     });
+}
+
+// Helpers
+function closeModal(modalId) {
+    bootstrap.Modal.getInstance(document.getElementById(modalId))?.hide();
 }
