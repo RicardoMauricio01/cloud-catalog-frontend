@@ -1,4 +1,4 @@
-const API_URL = "http://192.168.50.23:5501/api/products";
+const API_URL = "/api/products";
 
 let selectedProductId = null;
 
