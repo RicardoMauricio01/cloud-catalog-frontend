@@ -63,6 +63,13 @@ async function loadProducts() {
         const productos = await response.json();
 
         allProducts = productos;
+        
+        const heroCount = document.getElementById("productCountHero");
+
+        if (heroCount) {
+            heroCount.textContent = `${allProducts.length} productos`;
+        }
+
 
         // Evitar página inválida
         const totalPages = Math.max(

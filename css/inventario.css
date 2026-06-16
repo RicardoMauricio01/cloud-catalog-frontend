@@ -1,9 +1,16 @@
 /* ==========================================
-   1. LAYOUT DEL CATÁLOGO
-   ========================================== */
+   1. BASE / LAYOUT
+========================================== */
+
+body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: #f5f7fb;
+    color: #1e293b;
+}
 
 .catalog-page {
     min-height: 100vh;
+    padding: 20px 32px 20px;
 }
 
 .catalog-container {
@@ -17,6 +24,8 @@
 
 .table-wrapper {
     min-width: 700px;
+    overflow-x: auto;
+
     background: #fff;
     padding: 32px;
     border-radius: 28px;
@@ -24,20 +33,212 @@
 }
 
 /* ==========================================
-   2. HEADER DE LA TABLA
-   ========================================== */
+   2. HEADER / NAV / FOOTER
+========================================== */
+
+.topbar,
+.dashboard-nav,
+.main-footer {
+    background: #fff;
+}
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.dashboard-nav {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.main-footer {
+    margin-top: 10px;
+    border-top: 1px solid #e5e7eb;
+    align-items: center;
+}
+
+.header-inner,
+.nav-inner,
+.footer-inner {
+    width: min(1450px, 92%);
+    margin: auto;
+
+    display: flex;
+
+    justify-content: center;
+}
+
+.footer-inner {
+    margin: 50px auto 0px;
+    
+}
+
+/* ==========================================
+   3. TOPBAR
+========================================== */
+
+.header-inner {
+    justify-content: space-between;
+    padding: 18px 0;
+}
+
+.brand-wrapper,
+.top-actions,
+.hero-side-card,
+.dashboard-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-icon {
+    font-size: 2rem;
+    color: #00a76f;
+}
+
+.brand-title {
+    display: block;
+    font-weight: 800;
+}
+
+.brand-sub {
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.admin-btn,
+.user-btn {
+    display: flex;
+    border: none;
+    border-radius: 14px;
+    background: #eef2ff;
+    padding: 10px 18px;
+    font-weight: 600;
+    align-items: center;   /* 👈 centra verticalmente */
+    gap: 8px; 
+}
+
+/* ==========================================
+   4. NAVBAR
+========================================== */
+
+.nav-inner {
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 14px 0;
+}
+
+.dashboard-link {
+    text-decoration: none;
+    color: #475569;
+
+    padding: 10px 18px;
+    border-radius: 14px;
+
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.dashboard-link:hover {
+    background: #f1f5f9;
+}
+
+.dashboard-link.active {
+    background: #00a76f;
+    color: white;
+}
+
+/* ==========================================
+   5. HERO
+========================================== */
+
+.catalog-hero {
+    width: min(1400px, 92%);
+    margin: 40px auto 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 28px;
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00a76f,
+            #22c55e
+        );
+}
+
+.hero-badge {
+    display: inline-block;
+
+    padding: 8px 16px;
+    margin-bottom: 14px;
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.18);
+    font-weight: 700;
+}
+
+.hero-content h1 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.hero-content p {
+    color: white;
+}
+
+.hero-description {
+    margin-top: 10px;
+}
+
+.hero-side-card {
+    min-width: 240px;
+    padding: 22px;
+    border-radius: 22px;
+
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.topbar .material-symbols-outlined {
+    font-size: 20px;   /* importante: igualar altura visual con texto */
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+}
+
+.hero-side-card .material-symbols-outlined {
+    font-size: 3rem;
+}
+
+
+/* ==========================================
+   6. HEADER TABLA
+========================================== */
 
 .table-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
+    margin: -32px -32px 28px;
+    padding: 28px 32px;
+
+    border-radius: 28px 28px 0 0;
+
     background: #00a76f;
     color: white;
-
-    padding: 28px 32px;
-    margin: -32px -32px 28px;
-    border-radius: 28px 28px 0 0;
 }
 
 .table-title h2 {
@@ -53,8 +254,8 @@
 }
 
 /* ==========================================
-   3. TABLA
-   ========================================== */
+   7. TABLA
+========================================== */
 
 .table {
     width: 100%;
@@ -63,6 +264,7 @@
 
 .table th {
     padding: 18px 14px;
+
     border-bottom: 2px solid #f1f1f1;
 
     text-align: left;
@@ -73,6 +275,7 @@
 
 .table td {
     padding: 18px 14px;
+
     border-bottom: 1px solid #f3f3f3;
 
     vertical-align: middle;
@@ -93,8 +296,8 @@
 }
 
 /* ==========================================
-   4. ACCIONES Y CHECKBOXES
-   ========================================== */
+   8. BOTONES / CHECKBOXES
+========================================== */
 
 .action-btn {
     border: none;
@@ -134,8 +337,8 @@
 }
 
 /* ==========================================
-   5. PAGINACIÓN
-   ========================================== */
+   9. PAGINACIÓN
+========================================== */
 
 .hint-text {
     color: #777;
@@ -151,6 +354,7 @@
     min-width: 42px;
     height: 42px;
     margin: 0 4px;
+
     border: none;
     border-radius: 12px;
 
@@ -169,8 +373,8 @@
 }
 
 /* ==========================================
-   6. MODALES
-   ========================================== */
+   10. MODALES
+========================================== */
 
 .modal-content {
     overflow: hidden;
@@ -217,8 +421,8 @@
 }
 
 /* ==========================================
-   7. FORMULARIOS
-   ========================================== */
+   11. FORMULARIOS
+========================================== */
 
 .form-label {
     margin-bottom: 10px;
@@ -242,17 +446,18 @@
 
 .form-control:focus {
     border-color: #00a76f;
+
     box-shadow:
         0 0 0 4px rgba(0, 167, 111, 0.12),
         0 10px 25px rgba(0, 0, 0, 0.03);
 }
 
 /* ==========================================
-   8. BOTONES BOOTSTRAP
-   ========================================== */
+   12. BOOTSTRAP OVERRIDES
+========================================== */
 
 .btn {
-    width: auto; /* override login */
+    width: auto;
     height: 58px;
     padding: 0 28px;
     font-size: 16px;
@@ -264,8 +469,8 @@
 }
 
 /* ==========================================
-   9. MODAL ELIMINAR
-   ========================================== */
+   13. MODAL ELIMINAR
+========================================== */
 
 .delete-warning {
     text-align: center;
@@ -279,10 +484,11 @@
 }
 
 .delete-warning p {
+    margin-bottom: 8px;
+
     font-size: 18px;
     font-weight: 700;
     color: #171717;
-    margin-bottom: 8px;
 }
 
 .delete-warning small {
@@ -290,10 +496,47 @@
 }
 
 /* ==========================================
-   10. RESPONSIVE
-   ========================================== */
+   14. ESTADOS
+========================================== */
+
+.loading-row,
+.empty-row {
+    text-align: center;
+    color: #777;
+    font-weight: 600;
+}
+
+.loading-row td,
+.empty-row td {
+    padding: 42px !important;
+}
+
+/* ==========================================
+   15. RESPONSIVE
+========================================== */
+
+@media (max-width: 992px) {
+
+    .header-inner,
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .nav-inner {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero-side-card {
+        width: 100%;
+        justify-content: center;
+    }
+}
 
 @media (max-width: 768px) {
+
     .table-wrapper {
         min-width: unset;
         padding: 24px;
@@ -314,29 +557,7 @@
     .table-actions .btn {
         flex: 1;
     }
-}
 
-/* ==========================================
-   11. PEQUEÑAS MEJORAS UX
-   ========================================== */
-
-.table-wrapper {
-    overflow-x: auto;
-}
-
-.loading-row,
-.empty-row {
-    text-align: center;
-    color: #777;
-    font-weight: 600;
-}
-
-.loading-row td,
-.empty-row td {
-    padding: 42px !important;
-}
-
-@media (max-width: 768px) {
     .btn {
         height: 50px;
     }
