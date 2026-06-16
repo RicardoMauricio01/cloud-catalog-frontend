@@ -44,7 +44,7 @@ async function login() {
     }
 
     try {
-        const response = await fetch('/api/auth/login', {
+        const response = await fetch(`${API_URL}/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
@@ -80,7 +80,7 @@ async function registrar() {
     }
 
     try {
-        const response = await fetch('/api/auth/register', {
+        const response = await fetch(`${API_URL}/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, email, password })
@@ -132,7 +132,7 @@ async function solicitarEnlace() {
     try {
         mostrarMensaje('Procesando solicitud...', 'ok');
         
-        const response = await fetch('/api/auth/forgot-password', {
+        const response = await fetch(`${API_URL}/forgot-password`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email })
