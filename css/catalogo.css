@@ -1,90 +1,347 @@
-/* Base */
+/* ==========================================
+   1. LAYOUT DEL CATÁLOGO
+   ========================================== */
 
-body {
-    background: #f5f5f5;
-    color: #566787;
-    font-family: "Varela Round", sans-serif;
-    font-size: 14px;
+.catalog-page {
+    min-height: 100vh;
 }
 
-/* Layout */
+.catalog-container {
+    width: min(1400px, 92%);
+    margin: 50px auto;
+}
 
 .table-responsive {
-    margin: 30px 0;
+    margin: 40px 0;
 }
 
 .table-wrapper {
-    background: #fff;
-    padding: 20px 25px;
-    border-radius: 3px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-
     min-width: 700px;
+    background: #fff;
+    padding: 32px;
+    border-radius: 28px;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.04);
 }
 
+/* ==========================================
+   2. HEADER DE LA TABLA
+   ========================================== */
+
 .table-title {
-    background: #435d7d;
-    color: #fff;
-    padding: 16px 30px;
-    margin: -20px -25px 10px;
-    border-radius: 3px 3px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: #00a76f;
+    color: white;
+
+    padding: 28px 32px;
+    margin: -32px -32px 28px;
+    border-radius: 28px 28px 0 0;
 }
 
 .table-title h2 {
-    margin: 0;
-    font-size: 24px;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -1px;
 }
 
-/* Table */
+.table-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
 
-.table td,
+/* ==========================================
+   3. TABLA
+   ========================================== */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
 .table th {
+    padding: 18px 14px;
+    border-bottom: 2px solid #f1f1f1;
+
+    text-align: left;
+    font-size: 14px;
+    font-weight: 800;
+    color: #777;
+}
+
+.table td {
+    padding: 18px 14px;
+    border-bottom: 1px solid #f3f3f3;
+
     vertical-align: middle;
+    color: #222;
+    font-size: 15px;
 }
 
 .table td:last-child {
-    width: 130px;
+    width: 140px;
 }
 
-/* Buttons */
+.table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.table-hover > tbody > tr:hover > * {
+    background: rgba(0, 167, 111, 0.04) !important;
+}
+
+/* ==========================================
+   4. ACCIONES Y CHECKBOXES
+   ========================================== */
 
 .action-btn {
     border: none;
     background: transparent;
+    border-radius: 12px;
+    padding: 10px;
+
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    font-size: 18px;
+    transition: all 0.2s ease;
 }
 
 .action-btn:hover {
-    opacity: 0.7;
+    transform: translateY(-1px);
 }
 
 .action-btn.edit {
-    color: #ffc107;
+    color: #00a76f;
+}
+
+.action-btn.edit:hover {
+    background: rgba(0, 167, 111, 0.12);
 }
 
 .action-btn.delete {
-    color: #f44336;
+    color: #dc3545;
 }
 
-/* Form Elements */
-
-.custom-checkbox input {
-    transform: scale(1.2);
+.action-btn.delete:hover {
+    background: rgba(220, 53, 69, 0.12);
 }
 
-/* Pagination */
+.form-check-input {
+    transform: scale(1.25);
+    accent-color: #00a76f;
+    cursor: pointer;
+}
+
+/* ==========================================
+   5. PAGINACIÓN
+   ========================================== */
 
 .hint-text {
-    color: #6c757d;
+    color: #777;
+    font-size: 15px;
+    font-weight: 600;
 }
 
-/* Modals */
+.pagination .page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 42px;
+    height: 42px;
+    margin: 0 4px;
+    border: none;
+    border-radius: 12px;
+
+    color: #171717;
+    font-weight: 700;
+}
+
+.pagination .page-item.active .page-link {
+    background: #00a76f;
+    color: white;
+}
+
+.pagination .page-link:hover {
+    background: rgba(0, 167, 111, 0.08);
+    color: #00a76f;
+}
+
+/* ==========================================
+   6. MODALES
+   ========================================== */
 
 .modal-content {
-    border-radius: 8px;
+    overflow: hidden;
+    border: none;
+    border-radius: 28px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+.modal-header {
+    padding: 26px 30px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.modal-title {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #171717;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.modal-body .mb-3 {
+    margin-bottom: 22px !important;
 }
 
 .modal-footer {
-    background: #ecf0f1;
+    padding: 22px 30px;
+    background: #fafafa;
+    border-top: 1px solid #f1f1f1;
+}
+
+.btn-close {
+    border-radius: 50%;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+}
+
+.btn-close:hover {
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+/* ==========================================
+   7. FORMULARIOS
+   ========================================== */
+
+.form-label {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #555;
+}
+
+.form-control {
+    height: 62px;
+    border: 2px solid transparent;
+    border-radius: 40px;
+    padding: 0 24px;
+
+    font-size: 17px;
+    color: #222;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #00a76f;
+    box-shadow:
+        0 0 0 4px rgba(0, 167, 111, 0.12),
+        0 10px 25px rgba(0, 0, 0, 0.03);
+}
+
+/* ==========================================
+   8. BOTONES BOOTSTRAP
+   ========================================== */
+
+.btn {
+    width: auto; /* override login */
+    height: 58px;
+    padding: 0 28px;
+    font-size: 16px;
+}
+
+.btn-danger {
+    background: #dc3545;
+    box-shadow: 0 12px 30px rgba(220, 53, 69, 0.2);
+}
+
+/* ==========================================
+   9. MODAL ELIMINAR
+   ========================================== */
+
+.delete-warning {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.delete-warning .material-icons {
+    font-size: 48px;
+    color: #dc3545;
+    margin-bottom: 12px;
+}
+
+.delete-warning p {
+    font-size: 18px;
+    font-weight: 700;
+    color: #171717;
+    margin-bottom: 8px;
+}
+
+.delete-warning small {
+    color: #777;
+}
+
+/* ==========================================
+   10. RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+    .table-wrapper {
+        min-width: unset;
+        padding: 24px;
+        border-radius: 22px;
+    }
+
+    .table-title {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .table-actions {
+        width: 100%;
+    }
+
+    .table-actions .btn {
+        flex: 1;
+    }
+}
+
+/* ==========================================
+   11. PEQUEÑAS MEJORAS UX
+   ========================================== */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.loading-row,
+.empty-row {
+    text-align: center;
+    color: #777;
+    font-weight: 600;
+}
+
+.loading-row td,
+.empty-row td {
+    padding: 42px !important;
+}
+
+@media (max-width: 768px) {
+    .btn {
+        height: 50px;
+    }
+
+    .form-control {
+        height: 56px;
+    }
 }
