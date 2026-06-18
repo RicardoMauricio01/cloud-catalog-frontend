@@ -2,6 +2,7 @@ const API_URL = 'http://localhost:5000';
 
 function mostrarMensaje(texto, tipo = 'ok') {
     const msg = document.getElementById('msg');
+    if (!msg) return;
 
     if (!texto) {
         msg.style.display = 'none';
@@ -16,14 +17,20 @@ function mostrarMensaje(texto, tipo = 'ok') {
 }
 
 function mostrarRegistro() {
-    document.querySelector('.form-box').style.display = 'none';
+    document.getElementById('card-title').innerText = 'Crear Cuenta';
+    document.getElementById('card-subtitle').innerText = 'Regístrate para acceder al sistema';
+    document.getElementById('login-box').style.display = 'none';
     document.getElementById('register-box').style.display = 'block';
+    document.getElementById('forgot-box').style.display = 'none';
     mostrarMensaje('');
 }
 
 function mostrarLogin() {
-    document.querySelector('.form-box').style.display = 'block';
+    document.getElementById('card-title').innerText = 'Bienvenido';
+    document.getElementById('card-subtitle').innerText = 'Inicia sesión para continuar';
+    document.getElementById('login-box').style.display = 'block';
     document.getElementById('register-box').style.display = 'none';
+    document.getElementById('forgot-box').style.display = 'none';
     mostrarMensaje('');
 }
 
@@ -53,8 +60,8 @@ async function login() {
         mostrarMensaje(`Bienvenido, ${data.user}`, 'ok');
 
         setTimeout(() => {
-    window.location.href = 'productos.html';
-}, 1000);
+            window.location.href = 'productos.html';
+        }, 1000);
 
     } catch (error) {
         mostrarMensaje('No se pudo conectar con el servidor', 'error');
@@ -126,7 +133,7 @@ async function solicitarRecuperacion() {
 
     try {
         mostrarMensaje('Procesando solicitud...', 'ok');
-        
+
         // Enviamos la petición HTTP POST a la ruta que creamos en el servidor
         const response = await fetch(`${API_URL}/forgot-password`, {
             method: 'POST',
@@ -150,3 +157,4 @@ async function solicitarRecuperacion() {
         console.error(error);
     }
 }
+mostrarMensaje

@@ -107,7 +107,7 @@
                 msgBox.className = 'msg-box ok';
 
                 // Llamamos a la API relativa aprovechando que Express sirve el frontend
-                const response = await fetch('/reset-password', {
+                const response = await fetch('/api/auth/reset-password', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ token, password })
