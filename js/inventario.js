@@ -51,7 +51,7 @@ async function loadProducts() {
 
     tableBody.innerHTML = `
         <tr class="loading-row">
-            <td colspan="6">
+            <td colspan="7">
                 Cargando productos...
             </td>
         </tr>
@@ -83,7 +83,7 @@ async function loadProducts() {
 
         tableBody.innerHTML = `
             <tr class="empty-row">
-                <td colspan="6">
+                <td colspan="7">
                     ${error.message}
                 </td>
             </tr>
@@ -97,7 +97,7 @@ function renderProducts() {
     if (!allProducts.length) {
         tableBody.innerHTML = `
             <tr class="empty-row">
-                <td colspan="6">
+                <td colspan="7">
                     No hay productos registrados
                 </td>
             </tr>
@@ -203,6 +203,15 @@ function createProductRow(producto) {
             </td>
 
             <td>
+                <img
+                    src="${producto.imagen_url || 'https://via.placeholder.com/50'}"
+                    width="50"
+                    height="50"
+                    style="object-fit: cover; border-radius: 8px;"
+                />
+            </td>
+
+            <td>
                 $${Number(producto.precio).toLocaleString("es-CL")}
             </td>
 
@@ -218,6 +227,7 @@ function createProductRow(producto) {
                     data-nombre="${escapeAttribute(producto.nombre)}"
                     data-precio="${producto.precio}"
                     data-stock="${producto.stock}"
+                    data-imagen="${escapeAttribute(producto.imagen_url || '')}"
                     data-bs-toggle="modal"
                     data-bs-target="#editProductModal"
                 >
@@ -253,10 +263,9 @@ function setupCreate() {
 
         const product = {
             nombre: document.getElementById("addNombre").value.trim(),
-
             precio: Number(document.getElementById("addPrecio").value),
-
             stock: Number(document.getElementById("addStock").value),
+            imagen_url: document.getElementById("addImagen")?.value.trim() || null,
         };
 
         if (!validateProduct(product)) {
@@ -300,9 +309,18 @@ function setupEdit() {
         const product = {
             nombre: document.getElementById("editNombre").value.trim(),
 
-            precio: Number(document.getElementById("editPrecio").value),
+            precio: Number(
+                document.getElementById("editPrecio").value
+            ),
 
-            stock: Number(document.getElementById("editStock").value),
+            stock: Number(
+                document.getElementById("editStock").value
+            ),
+
+            imagen_url: document
+                .getElementById("editImagen")
+                .value
+                .trim(),
         };
 
         if (!validateProduct(product)) {
@@ -452,12 +470,12 @@ function setupTableEvents() {
 
 function fillEditForm(data) {
     document.getElementById("editId").value = data.id;
-
     document.getElementById("editNombre").value = data.nombre;
-
     document.getElementById("editPrecio").value = data.precio;
-
     document.getElementById("editStock").value = data.stock;
+
+    document.getElementById("editImagen").value =
+        data.imagen || "";
 }
 
 // Checkboxes
