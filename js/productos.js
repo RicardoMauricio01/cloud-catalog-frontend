@@ -3,21 +3,21 @@ let categoriaSeleccionada = "Todas";
 
 // Base de datos de productos adaptada exactamente a la maqueta (image_4a19c8.jpg)
 const productos = [
-    { id: 1, nombre: "Arroz Tucapel 1kg", categoria: "Abarrotes", precio: 1200, disponible: true, img: "../img/abarrotes/arroz_tucapel.png" },
-    { id: 2, nombre: "Leche Entera 1L", categoria: "Abarrotes", precio: 1500, disponible: true, img: "../img/abarrotes/leche_entera.png" },
-    { id: 3, nombre: "Aceite Natura 900ml", categoria: "Abarrotes", precio: 1800, disponible: true, img: "../img/abarrotes/aceite_natura.png" },
-    { id: 4, nombre: "Azúcar Iansa 1kg", categoria: "Abarrotes", precio: 1100, disponible: true, img: "../img/abarrotes/azucar_iansa.png" },
-    { id: 5, nombre: "Porotos Banquete 1kg", categoria: "Abarrotes", precio: 1300, disponible: true, img: "../img/abarrotes/porotos_banquete.png" },
-    { id: 6, nombre: "Fideos Carozzi Espirales 400g", categoria: "Abarrotes", precio: 950, disponible: true, img: "../img/abarrotes/fideos_carozzi.png" },
-    { id: 7, nombre: "Atún San José 170g", categoria: "Abarrotes", precio: 1250, disponible: true, img: "../img/abarrotes/atun_san_jose.png" },
-    { id: 8, nombre: "Salsa de Tomate Malloa 200g", categoria: "Abarrotes", precio: 750, disponible: true, img: "../img/abarrotes/salsa_malloa.png" },
-    { id: 9, nombre: "Papel Higiénico Elite 4un", categoria: "Limpieza", precio: 1950, disponible: true, img: "../img/abarrotes/papel_elite.png" },
-    { id: 10, nombre: "Shampoo Sedal 400ml", categoria: "Cuidado Personal", precio: 2600, disponible: true, img: "../img/abarrotes/sedal.png" },
-    { id: 11, nombre: "Sprite 1.5L", categoria: "Bebidas", precio: 1300, disponible: true, img: "../img/abarrotes/sprite.png" },
-    { id: 12, nombre: "Oreo Original", categoria: "Snacks", precio: 800, disponible: true, img: "../img/abarrotes/oreo_original.png" },
-    { id: 13, nombre: "Papas Lays Clásicas", categoria: "Snacks", precio: 1600, disponible: true, img: "../img/abarrotes/papas_light.png" },
-    { id: 14, nombre: "Pasta Colgate Triple Acción", categoria: "Cuidado Personal", precio: 2200, disponible: true, img: "../img/abarrotes/colgate.png" },
-    { id: 15, nombre: "Queso Colun Laminado", categoria: "Lácteos", precio: 3200, disponible: true, img: "../img/abarrotes/queso_colum.png" }
+    { id: 1, nombre: "Arroz Tucapel 1kg", categoria: "Abarrotes", precio: 1200, disponible: true, img: "../../img/abarrotes/arroz_tucapel.png" },
+    { id: 2, nombre: "Leche Entera 1L", categoria: "Abarrotes", precio: 1500, disponible: true, img: "../../img/abarrotes/leche_entera.png" },
+    { id: 3, nombre: "Aceite Natura 900ml", categoria: "Abarrotes", precio: 1800, disponible: true, img: "../../img/abarrotes/aceite_natura.png" },
+    { id: 4, nombre: "Azúcar Iansa 1kg", categoria: "Abarrotes", precio: 1100, disponible: true, img: "../../img/abarrotes/azucar_iansa.png" },
+    { id: 5, nombre: "Porotos Banquete 1kg", categoria: "Abarrotes", precio: 1300, disponible: true, img: "../../img/abarrotes/porotos_banquete.png" },
+    { id: 6, nombre: "Fideos Carozzi Espirales 400g", categoria: "Abarrotes", precio: 950, disponible: true, img: "../../img/abarrotes/fideos_carozzi.png" },
+    { id: 7, nombre: "Atún San José 170g", categoria: "Abarrotes", precio: 1250, disponible: true, img: "../../img/abarrotes/atun_san_jose.png" },
+    { id: 8, nombre: "Salsa de Tomate Malloa 200g", categoria: "Abarrotes", precio: 750, disponible: true, img: "../../img/abarrotes/salsa_malloa.png" },
+    { id: 9, nombre: "Papel Higiénico Elite 4un", categoria: "Limpieza", precio: 1950, disponible: true, img: "../../img/abarrotes/papel_elite.png" },
+    { id: 10, nombre: "Shampoo Sedal 400ml", categoria: "Cuidado Personal", precio: 2600, disponible: true, img: "../../img/abarrotes/sedal.png" },
+    { id: 11, nombre: "Sprite 1.5L", categoria: "Bebidas", precio: 1300, disponible: true, img: "../../img/abarrotes/sprite.png" },
+    { id: 12, nombre: "Oreo Original", categoria: "Snacks", precio: 800, disponible: true, img: "../../img/abarrotes/oreo_original.png" },
+    { id: 13, nombre: "Papas Lays Clásicas", categoria: "Snacks", precio: 1600, disponible: true, img: "../../img/abarrotes/papas_light.png" },
+    { id: 14, nombre: "Pasta Colgate Triple Acción", categoria: "Cuidado Personal", precio: 2200, disponible: true, img: "../../img/abarrotes/colgate.png" },
+    { id: 15, nombre: "Queso Colun Laminado", categoria: "Lácteos", precio: 3200, disponible: true, img: "../../img/abarrotes/queso_colum.png" }
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
