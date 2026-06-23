@@ -1,74 +1,219 @@
-body {
-    color: #566787;
-    background: #f5f5f5;
-    font-family: "Varela Round", sans-serif;
+/* ==========================================
+   1. PRODUCTS GRID
+========================================== */
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 260px));
+    gap: 24px;
+    justify-content: center;
+}
+
+/* ==========================================
+   2. PRODUCT CARD
+========================================== */
+
+.product-card {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 20px;
+
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #eef2f7;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    will-change: transform;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(0, 167, 111, 0.15);
+}
+
+/* ==========================================
+   3. PRODUCT IMAGE
+========================================== */
+
+.product-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+
+    border-radius: var(--radius-md);
+    background: #f1f5f9;
+}
+
+/* ==========================================
+   4. PRODUCT INFO
+========================================== */
+
+.product-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: #0f172a;
+    line-height: 1.2;
+}
+
+.product-price {
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.product-stock {
+    color: #64748b;
     font-size: 13px;
 }
 
-.table-responsive {
-    margin: 30px 0;
+/* ==========================================
+   5. LAYOUT
+========================================== */
+
+.catalog-page {
+    min-height: calc(100vh - 140px);
 }
 
-.table-wrapper {
-    min-width: 1000px;
+.catalog-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+/* ==========================================
+   6. SIDEBAR
+========================================== */
+
+.sidebar {
     background: #fff;
-    padding: 20px 25px;
-    border-radius: 3px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #eef2f7;
+
+    position: sticky;
+    top: 20px;
 }
 
-.table-title {
-    background: #435d7d;
-    color: #fff;
-    padding: 16px 30px;
-    margin: -20px -25px 10px;
-    border-radius: 3px 3px 0 0;
+.sidebar-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
 }
 
-.table-title h2 {
-    margin: 0;
-    font-size: 24px;
+/* ==========================================
+   7. CATEGORY LIST
+========================================== */
+
+.cat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.table td,
-.table th {
-    vertical-align: middle;
-}
+/* ==========================================
+   8. CATEGORY BUTTON
+========================================== */
 
-.table td:last-child {
-    width: 130px;
-}
+.cat-btn {
+    width: 100%;
+    padding: 10px 12px;
 
-.action-btn {
-    border: none;
-    background: transparent;
+    border-radius: 14px;
+    border: 1px solid transparent;
+
+    background: #f8fafc;
+    color: #334155;
+
     cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-weight: 600;
+    font-size: 14px;
+
+    transition: all 0.18s ease;
 }
 
-.action-btn.edit {
-    color: #ffc107;
+/* indicador */
+.cat-btn::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: transparent;
+    transition: all 0.18s ease;
 }
 
-.action-btn.delete {
-    color: #f44336;
+.cat-btn:hover {
+    background: #eef6ff;
+    border-color: rgba(0, 167, 111, 0.15);
+    transform: translateX(2px);
 }
 
-.custom-checkbox input {
-    transform: scale(1.2);
+.cat-btn.active {
+    background: rgba(0, 167, 111, 0.08);
+    border-color: rgba(0, 167, 111, 0.35);
+    color: var(--primary);
+    box-shadow: 0 8px 18px rgba(0, 167, 111, 0.12);
 }
 
-.pagination {
-    margin-bottom: 0;
+.cat-btn.active::after {
+    background: var(--primary);
 }
 
-.hint-text {
-    margin-top: 10px;
+.cat-btn:focus-visible {
+    outline: 3px solid rgba(0, 167, 111, 0.25);
+    outline-offset: 2px;
 }
 
-.modal-content {
-    border-radius: 8px;
-}
+/* ==========================================
+   9. RESPONSIVE
+========================================== */
 
-.modal-footer {
-    background: #ecf0f1;
+@media (max-width: 768px) {
+
+    .catalog-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: relative;
+        top: auto;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 16px;
+    }
+
+    .product-img {
+        height: 150px;
+    }
+
+    .cat-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .cat-btn {
+        width: auto;
+        flex: 1;
+        justify-content: center;
+    }
+
+    .cat-btn::after {
+        display: none;
+    }
 }
